@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load rest_framework %}
+
+{% block dashboard %}
+<h2>Cadastro de usuario </h2>
+<form method="post" enctype="multipart/form-data" class='form-control'>
+    {% csrf_token %}
+    {% render_form serializer %}
+    <br>
+    <button type="submit" class="btn btn-primary">Cadastrar usuario</button>
+</form>
+
+ 
+<div class="col-md">
+{% if messages %}
+{% for message in messages %}
+<center>
+    <div class="alert{% if 'sucess' in message.tags %}alert-sucess{% elif 'error' in message.tags %}alert-danger{% endif %} custom-sucess-alert" role="alert">
+        {{ message }}
+    </div>
+</center>
+{% endfor %}
+<script>
+    setTimeout(function() {
+        var messages = document.querySelectorAll('.alert');
+        messages.forEach(function(message) {
+            message.remove();
+        });
+    },1000);
+</script>
+{% endif %}
+</div>
+{% endblock %}
